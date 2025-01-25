@@ -1,27 +1,27 @@
-import React, { useContext, useEffect } from 'react';
-import { userContext } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
-import AllUsers from '../components/AllUsers';
-import Chats from '../components/Chats';
-import '../style/home-page.css';
+import React, { useContext, useEffect } from "react";
+import { userContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import AllUsers from "../components/AllUsers";
+import Chats from "../components/Chats";
+import "../style/home-page.css";
 
 const Home = () => {
   const { user, setUser } = useContext(userContext);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) navigate('/login');
+    if (!user) navigate("/login");
   }, []);
   return (
     <>
       {user ? (
         <div>
           <div id="profile-card">
-            <h1>Welcome {user.displayName} ! </h1>
+            <h1>Hi {user.displayName} ! </h1>
             <img src={user.photoURL} width="250px" alt="" />
             <button
               onClick={() => {
                 setUser(null);
-                navigate('/login');
+                navigate("/login");
               }}
             >
               Log out
