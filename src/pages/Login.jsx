@@ -1,14 +1,12 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
-import { userContext } from '../context/UserContext';
-
-import '../style/login-signup.css';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { userContext } from "../context/UserContext";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const { setUser } = useContext(userContext);
   const navigate = useNavigate();
@@ -16,8 +14,9 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
         console.log(user);
+        localStorage.setItem("user", JSON.stringify(user.user));
         setUser(user.user);
-        navigate('/');
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +49,7 @@ const Login = () => {
       >
         Login
       </button>
-      Dont have an account ? <Link to={'/signup'}>Sign up</Link>
+      Dont have an account ? <Link to={"/signup"}>Sign up</Link>
       {error && <div>incorrect mail or password</div>}
     </div>
   );

@@ -1,8 +1,8 @@
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import React, { useContext, useEffect, useState } from 'react';
-import { db } from '../firebase';
-import { chatContext } from '../context/ChatContext';
-import { userContext } from '../context/UserContext';
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
+import { db } from "../firebase";
+import { chatContext } from "../context/ChatContext";
+import { userContext } from "../context/UserContext";
 
 const AllUsers = () => {
   const [users, setUsers] = useState(null);
@@ -14,7 +14,8 @@ const AllUsers = () => {
   };
   useEffect(() => {
     let arr = [];
-    getDocs(collection(db, 'users'))
+    setChatUser(null);
+    getDocs(collection(db, "users"))
       .then((querySnapshot) => {
         querySnapshot.forEach((element) => {
           if (element.data().uid != user.uid) arr.push(element.data());
@@ -25,10 +26,8 @@ const AllUsers = () => {
       });
   }, []);
   return (
-    <div>
-      <h1 style={{ fontSize: 25, textAlign: 'center', marginBottom: '20px' }}>
-        All User List
-      </h1>
+    <div id="friend-list">
+      <h1>Friend List</h1>
       {users ? (
         users.map((user) => {
           return (
@@ -40,7 +39,7 @@ const AllUsers = () => {
               }}
               key={user.uid}
             >
-              <img src={user.photoURL} width="100px" alt="" />
+              <img src={user.photoURL} />
               <h1>{user.displayName}</h1>
             </div>
           );
